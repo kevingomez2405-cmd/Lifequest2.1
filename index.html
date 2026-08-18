@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LifeQuest - Acceso</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Partículas animadas de fondo -->
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+
+    <div class="auth-container">
+      <!-- Controles ocultos para navegación entre vistas -->
+      <input type="radio" name="auth-view" id="view-login" checked />
+      <input type="radio" name="auth-view" id="view-register" />
+      <input type="radio" name="auth-view" id="view-forgot" />
+      <input type="radio" name="auth-view" id="view-code" />
+      <input type="radio" name="auth-view" id="view-newpass" />
+
+      <!-- Logo y tagline con animación -->
+      <div class="logo-section">
+        <div class="logo-icon">
+          <i class="fas fa-gamepad"></i>
+        </div>
+        <h1 class="logo">LifeQuest</h1>
+        <p class="tagline">Tus hábitos, tu juego</p>
+      </div>
+
+      <!-- ==================== FORMULARIO: INICIAR SESIÓN ==================== -->
+      <form class="auth-form form-login">
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" placeholder="Correo electrónico" required />
+          <div class="input-glow"></div>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Contraseña" required />
+          <div class="input-glow"></div>
+        </div>
+
+        <div class="options-row">
+          <label class="checkbox-label">
+            <input type="checkbox" />
+            <span>Recordarme</span>
+          </label>
+          <label for="view-forgot" class="link-forgot"
+            >¿Olvidaste tu contraseña?</label
+          >
+        </div>
+
+        <button type="submit" class="btn-primary">
+          <span>Iniciar Sesión</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+
+        <div class="divider">
+          <span>O inicia sesión de otra forma</span>
+        </div>
+
+        <button type="button" class="btn-social btn-google">
+          <i class="fab fa-google"></i>
+          Continuar con Google
+        </button>
+
+        <button type="button" class="btn-social btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+          Continuar con Facebook
+        </button>
+
+        <div class="switch-form">
+          ¿No tienes cuenta?
+          <label for="view-register" class="link-switch">Regístrate</label>
+        </div>
+      </form>
+
+      <!-- ==================== FORMULARIO: REGISTRO ==================== -->
+      <form class="auth-form form-register">
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="Nombre" required />
+          <div class="input-glow"></div>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="Apellido" required />
+          <div class="input-glow"></div>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" placeholder="Correo electrónico" required />
+          <div class="input-glow"></div>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Contraseña" required />
+          <div class="input-glow"></div>
+          <span class="input-hint">Mínimo 8 caracteres</span>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Confirmar contraseña" required />
+          <div class="input-glow"></div>
+        </div>
+
+        <label class="checkbox-label terms-label">
+          <input type="checkbox" required />
+          <span
+            >Acepto los
+            <a href="#" class="link-terms">términos y condiciones</a></span
+          >
+        </label>
+
+        <button type="submit" class="btn-primary">
+          <span>Registrarse</span>
+          <i class="fas fa-user-plus"></i>
+        </button>
+
+        <div class="divider">
+          <span>O regístrate de otra forma</span>
+        </div>
+
+        <button type="button" class="btn-social btn-google">
+          <i class="fab fa-google"></i>
+          Continuar con Google
+        </button>
+
+        <button type="button" class="btn-social btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+          Continuar con Facebook
+        </button>
+
+        <div class="switch-form">
+          ¿Ya tienes cuenta?
+          <label for="view-login" class="link-switch">Inicia sesión</label>
+        </div>
+      </form>
+
+      <!-- ==================== FORMULARIO: OLVIDÉ CONTRASEÑA (Email) ==================== -->
+      <form class="auth-form form-forgot">
+        <div class="info-box">
+          <i class="fas fa-info-circle"></i>
+          <p>
+            Ingresa tu correo electrónico y te enviaremos un código de
+            verificación
+          </p>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" placeholder="Correo electrónico" required />
+          <div class="input-glow"></div>
+        </div>
+
+        <button type="submit" class="btn-primary">
+          <span>Enviar Código</span>
+          <i class="fas fa-paper-plane"></i>
+        </button>
+
+        <div class="switch-form">
+          ¿Recordaste tu contraseña?
+          <label for="view-login" class="link-switch">Volver al inicio</label>
+        </div>
+      </form>
+
+      <!-- ==================== FORMULARIO: VERIFICAR CÓDIGO ==================== -->
+      <form class="auth-form form-code">
+        <div class="info-box">
+          <i class="fas fa-shield-alt"></i>
+          <p>
+            Hemos enviado un código de 6 dígitos a tu correo. Ingrésalo para
+            continuar.
+          </p>
+        </div>
+
+        <div class="code-inputs">
+          <input type="text" maxlength="1" class="code-digit" required />
+          <input type="text" maxlength="1" class="code-digit" required />
+          <input type="text" maxlength="1" class="code-digit" required />
+          <input type="text" maxlength="1" class="code-digit" required />
+          <input type="text" maxlength="1" class="code-digit" required />
+          <input type="text" maxlength="1" class="code-digit" required />
+        </div>
+
+        <button type="submit" class="btn-primary">
+          <span>Verificar Código</span>
+          <i class="fas fa-check"></i>
+        </button>
+
+        <div class="resend-code">
+          ¿No recibiste el código? <a href="#" class="link-resend">Reenviar</a>
+        </div>
+
+        <div class="switch-form">
+          <label for="view-forgot" class="link-switch">Volver</label>
+        </div>
+      </form>
+
+      <!-- ==================== FORMULARIO: NUEVA CONTRASEÑA ==================== -->
+      <form class="auth-form form-newpass">
+        <div class="info-box success">
+          <i class="fas fa-check-circle"></i>
+          <p>¡Código verificado! Ahora crea tu nueva contraseña</p>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Nueva contraseña" required />
+          <div class="input-glow"></div>
+          <span class="input-hint">Mínimo 8 caracteres</span>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input
+            type="password"
+            placeholder="Confirmar nueva contraseña"
+            required
+          />
+          <div class="input-glow"></div>
+        </div>
+
+        <button type="submit" class="btn-primary">
+          <span>Guardar Contraseña</span>
+          <i class="fas fa-save"></i>
+        </button>
+
+        <div class="switch-form">
+          <label for="view-login" class="link-switch"
+            >Volver al inicio de sesión</label
+          >
+        </div>
+      </form>
+    </div>
+    <script src="js/api.js"></script>
+    <script src="js/inicio.js"></script>
+  </body>
+</html>

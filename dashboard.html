@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LifeQuest - Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/dashboard.css" />
+  </head>
+  <body>
+    <div class="dynamic-bg">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+    </div>
+
+    <div class="dashboard-container">
+      <!-- HEADER SUPERIOR -->
+      <header class="top-header">
+        <div class="level-info">
+          <div class="level-circle-wrapper">
+            <div class="level-circle">
+              <span id="user-level">2</span>
+              <div class="level-glow"></div>
+            </div>
+            <div class="level-badge-rotate"></div>
+          </div>
+          <div class="xp-info">
+            <div class="xp-label">
+              <span>Progreso</span>
+              <i class="fas fa-star xp-star"></i>
+            </div>
+            <div class="xp-bar-container">
+              <div class="xp-bar">
+                <div class="xp-fill" id="xp-fill" style="width: 0%">
+                  <div class="xp-shine"></div>
+                </div>
+              </div>
+              <div class="xp-text">
+                <span id="current-xp">0</span> /
+                <span id="max-xp">1000</span> XP
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="coins-display-wrapper">
+          <div class="coins-display">
+            <div class="coin-icon">
+              <i class="fas fa-coins"></i>
+            </div>
+            <span id="user-coins" class="coin-count">50</span>
+            <div class="coin-glow"></div>
+          </div>
+          <div class="coins-particles"></div>
+        </div>
+      </header>
+
+      <!-- ÁREA DE CONTENIDO -->
+      <main class="content-area">
+        <!-- SECCIÓN: INICIO -->
+        <section class="content-section active" id="section-inicio">
+          <div class="welcome-header">
+            <h2>¡Hola, <span id="user-name">Usuario</span>! 👋</h2>
+            <p>¿Listo para tu próxima misión?</p>
+          </div>
+
+          <!-- Mascota con burbuja de diálogo -->
+          <div class="mascot-spotlight">
+            <div class="mascot-3d-container">
+              <div class="mascot-bounce">
+                <span class="mascot-emoji" id="display-mascot">🦜</span>
+              </div>
+            </div>
+            <div class="mascot-bubble">
+              <p id="mascot-message">¡Vamos, hoy es un gran día!</p>
+            </div>
+          </div>
+
+          <!-- Estadísticas rápidas -->
+          <div class="quick-stats">
+            <div class="stat-card">
+              <div class="stat-icon fire">
+                <i class="fas fa-fire"></i>
+              </div>
+              <div class="stat-info">
+                <span class="stat-value" id="streak-value">0</span>
+                <span class="stat-label">Racha</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon check">
+                <i class="fas fa-check-double"></i>
+              </div>
+              <div class="stat-info">
+                <span class="stat-value" id="completed-value">0</span>
+                <span class="stat-label">Completadas</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Misiones de Hoy -->
+          <div class="section-header">
+            <h3>Misiones de Hoy</h3>
+            <a href="#" class="view-all" onclick="switchTab('misiones')"
+              >Ver todas</a
+            >
+          </div>
+          <div class="mission-list" id="home-mission-list">
+            <!-- Se llena con JS -->
+          </div>
+
+          <!-- ZONA GAMER -->
+          <div class="gaming-zone-card">
+            <div class="gaming-header">
+              <i class="fas fa-gamepad"></i>
+              <h3>Zona Gamer</h3>
+            </div>
+            <p class="gaming-subtitle" id="gaming-status">
+              ¿Listo para jugar? Inicia tu sesión.
+            </p>
+
+            <div class="timer-display" id="gaming-timer">00:00</div>
+
+            <div class="gaming-actions">
+              <button
+                class="btn-gaming-start"
+                id="btn-start-gaming"
+                onclick="promptGameSelection()"
+              >
+                <i class="fas fa-play"></i> Iniciar Sesión
+              </button>
+              <button
+                class="btn-gaming-stop"
+                id="btn-stop-gaming"
+                onclick="stopGamingSession()"
+                style="display: none"
+              >
+                <i class="fas fa-stop"></i> Terminar
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECCIÓN: MISIONES -->
+        <section class="content-section" id="section-misiones">
+          <div class="section-title">
+            <h2>Mis Misiones</h2>
+            <button class="btn-new-mission" onclick="openMissionModal()">
+              <i class="fas fa-plus"></i> Nueva Misión
+            </button>
+          </div>
+
+          <div class="tabs">
+            <button class="tab-btn active" onclick="filterMissions('activas')">
+              Activas
+            </button>
+            <button class="tab-btn" onclick="filterMissions('completadas')">
+              Completadas
+            </button>
+          </div>
+
+          <div class="mission-list-full" id="all-mission-list">
+            <!-- Se llena con JS -->
+          </div>
+
+          <button
+            class="btn-complete-mission"
+            onclick="completeSelectedMission()"
+          >
+            <i class="fas fa-camera"></i> Subir evidencia y completar
+          </button>
+          <button class="btn-evidence" onclick="openEvidenceModal()">
+            <i class="fas fa-camera"></i> Subir evidencia
+          </button>
+        </section>
+
+        <!-- SECCIÓN: RANKING -->
+        <section class="content-section" id="section-ranking">
+          <div class="section-title">
+            <h2>🏆 Tabla de Líderes</h2>
+            <p class="ranking-subtitle">Compite con otros LifeQuesters</p>
+          </div>
+
+          <!-- Podio Top 3 -->
+          <div class="podium-container">
+            <div class="podium-item second">
+              <div class="podium-avatar">🥈</div>
+              <div class="podium-name" id="podium-2-name">-</div>
+              <div class="podium-xp" id="podium-2-xp">0 XP</div>
+            </div>
+            <div class="podium-item first">
+              <div class="podium-avatar"></div>
+              <div class="podium-name" id="podium-1-name">-</div>
+              <div class="podium-xp" id="podium-1-xp">0 XP</div>
+            </div>
+            <div class="podium-item third">
+              <div class="podium-avatar">🥉</div>
+              <div class="podium-name" id="podium-3-name">-</div>
+              <div class="podium-xp" id="podium-3-xp">0 XP</div>
+            </div>
+          </div>
+
+          <!-- Lista del resto del ranking -->
+          <div class="ranking-list" id="ranking-list">
+            <!-- Se llena con JS -->
+          </div>
+        </section>
+
+        <!-- SECCIÓN: TIENDA (LIFESTORE) -->
+        <section class="content-section" id="section-tienda">
+          <div class="section-title">
+            <h2>LifeStore</h2>
+            <span class="coins-badge"
+              ><i class="fas fa-coins"></i>
+              <span id="store-coins">50</span></span
+            >
+          </div>
+
+          <div class="store-categories">
+            <button class="category-btn active">Mascotas</button>
+            <button class="category-btn">Ropa</button>
+            <button class="category-btn">Accesorios</button>
+          </div>
+
+          <div class="store-grid" id="store-items">
+            <!-- Se llena con JS -->
+          </div>
+        </section>
+
+        <!-- SECCIÓN: EVIDENCIAS -->
+        <section class="content-section" id="section-evidencias">
+          <div class="section-title">
+            <h2>Mis Evidencias</h2>
+          </div>
+
+          <button class="btn-upload-evidence" onclick="openEvidenceModal()">
+            <i class="fas fa-plus-circle"></i> Subir nueva evidencia
+          </button>
+
+          <div class="evidence-list" id="evidence-list">
+            <!-- Se llena con JS -->
+          </div>
+        </section>
+
+        <!-- SECCIÓN: PERFIL -->
+        <section class="content-section" id="section-perfil">
+          <div class="section-title">
+            <h2>Perfil</h2>
+          </div>
+
+          <div class="profile-header-card">
+            <div class="profile-avatar" id="profile-avatar-display">
+              <i class="fas fa-user-astronaut"></i>
+            </div>
+            <div class="profile-info">
+              <h3 id="profile-name">Cargando...</h3>
+              <p class="profile-level-text">
+                Nivel <span id="profile-level">1</span> -
+                <span id="profile-mascot-name">Sin mascota</span>
+              </p>
+              <div class="profile-xp-bar">
+                <div
+                  class="profile-xp-fill"
+                  id="profile-xp-fill"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <span class="profile-xp-text"
+                ><span id="profile-current-xp">0</span> /
+                <span id="profile-max-xp">1000</span> XP</span
+              >
+            </div>
+          </div>
+
+          <!-- Formulario para editar perfil -->
+          <div class="edit-profile-section">
+            <h3>sobre mi</h3>
+            <p class="bio-display" id="bio-display">Agrega una biografía para tu perfil...</p>
+            <div class="bio-edit-area" id="bio-edit-area" style="display:none;">
+              <div class="input-group">
+                <label for="edit-bio">Biografía (máx. 50 caracteres)</label>
+                <input
+                  type="text"
+                  id="edit-bio"
+                  placeholder="Ej: Estudiante apasionado por los hábitos saludables"
+                  maxlength="50"
+                />
+              </div>
+            </div>
+            <div class="bio-buttons">
+              <button class="btn-save-profile" id="btn-edit-bio" onclick="toggleBioEdit()">
+                <i class="fas fa-edit"></i> Editar
+              </button>
+              <button class="btn-save-profile" id="btn-save-bio" onclick="saveProfileChanges()" style="display:none;">
+                <i class="fas fa-save"></i> Guardar Cambios
+              </button>
+            </div>
+          </div>
+
+          <!-- Cambiar Mascota -->
+          <div class="edit-profile-section">
+            <h3>Mi Mascota</h3>
+            <div class="mascot-change-area">
+              <div class="current-mascot-display">
+                <span class="current-mascot-emoji" id="profile-mascot-emoji">🐾</span>
+                <span class="current-mascot-name" id="profile-mascot-current-name">Sin mascota</span>
+              </div>
+              <button class="btn-save-profile" onclick="openMascotChangeModal()">
+                <i class="fas fa-paw"></i> Cambiar Mascota
+              </button>
+            </div>
+          </div>
+
+          <div class="stats-section">
+            <h3>Estadísticas</h3>
+            <div class="stats-mini-grid">
+              <div class="stats-mini-card">
+                <i class="fas fa-check-square"></i>
+                <span>Hábitos</span>
+                <span class="value">0</span>
+              </div>
+              <div class="stats-mini-card">
+                <i class="fas fa-clock"></i>
+                <span>Próximamente</span>
+                <span class="value">0</span>
+              </div>
+              <div class="stats-mini-card">
+                <i class="fas fa-calendar-day"></i>
+                <span>Días Totales</span>
+                <span class="value">0</span>
+              </div>
+              <div class="stats-mini-card">
+                <i class="fas fa-bullseye"></i>
+                <span>Totales</span>
+                <span class="value">0</span>
+              </div>
+            </div>
+          </div>
+          <div class="achievements-section">
+            <div class="section-header">
+              <h3>🏆 Mis Logros</h3>
+              <span class="achievement-count"
+                ><span id="unlocked-count">0</span> /
+                <span id="total-count">0</span></span
+              >
+            </div>
+
+            <!-- Aquí se inyectarán los logros dinámicamente con JS -->
+            <div class="achievements-grid" id="achievements-grid">
+              <!-- Los logros se generarán aquí -->
+            </div>
+          </div>
+
+          <button class="btn-lifeplus">
+            <i class="fas fa-crown"></i> LifePlus
+          </button>
+
+          <div class="profile-options">
+            <button class="option-btn" onclick="window.location.href='configuracion.html'">
+              <i class="fas fa-cog"></i> Configuración
+            </button>
+            <button class="option-btn logout-btn" onclick="logout()">
+              <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <!-- MENÚ INFERIOR -->
+      <nav class="bottom-nav">
+        <button class="nav-btn active" onclick="switchTab('inicio')">
+          <i class="fas fa-home"></i>
+          <span>Inicio</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('misiones')">
+          <i class="fas fa-bullseye"></i>
+          <span>Misiones</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('ranking')">
+          <i class="fas fa-trophy"></i>
+          <span>Ranking</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('tienda')">
+          <i class="fas fa-store"></i>
+          <span>Tienda</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('perfil')">
+          <i class="fas fa-user"></i>
+          <span>Perfil</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- MODAL PARA CREAR NUEVA MISIÓN -->
+    <div class="modal" id="mission-modal">
+      <div class="modal-content">
+        <h3>Crear Nueva Misión</h3>
+        <form id="mission-form">
+          <div class="input-group">
+            <label for="mission-name">Nombre de la misión</label>
+            <input
+              type="text"
+              id="mission-name"
+              placeholder="Ej: Estudiar 30 minutos"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="mission-type">Tipo de misión</label>
+            <select id="mission-type" required>
+              <option value="estudio">📚 Estudio</option>
+              <option value="ejercicio">💪 Ejercicio</option>
+              <option value="sueno">😴 Dormir mejor</option>
+              <option value="otro">🎯 Otro</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="mission-difficulty">Dificultad</label>
+            <select id="mission-difficulty" required>
+              <option value="bajo">Bajo (+20 XP)</option>
+              <option value="medio">Medio (+50 XP)</option>
+              <option value="alto">Alto (+100 XP)</option>
+            </select>
+          </div>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="closeMissionModal()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn-submit">Crear Misión</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL DE EVIDENCIA -->
+    <div class="modal" id="evidence-modal">
+      <div class="modal-content">
+        <h3>Subir Evidencia</h3>
+        <input type="file" id="evidence-file-input" accept="image/jpeg,image/png,image/gif,image/webp,video/mp4" style="display:none" />
+        <div class="upload-area" id="upload-area" onclick="document.getElementById('evidence-file-input').click()">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p id="evidence-file-name">Arrastra una foto o video aquí</p>
+          <button type="button" class="btn-select-file" onclick="event.stopPropagation(); document.getElementById('evidence-file-input').click()">Seleccionar archivo</button>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeEvidenceModal()">
+            Cancelar
+          </button>
+          <button class="btn-submit" id="btn-submit-evidence" onclick="uploadEvidence()">
+            Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL CAMBIAR MASCOTA -->
+    <div class="modal" id="mascot-modal">
+      <div class="modal-content">
+        <h3>Cambiar Mascota</h3>
+        <p style="text-align:center;color:var(--gray-text);margin-bottom:15px;font-size:14px;">Elige tu nuevo compañero</p>
+        <div style="display:flex;gap:10px;justify-content:center;margin-bottom:20px;">
+          <div class="mascot-pick-card" onclick="changeMascot(1, 'Panda', '🐼')" style="cursor:pointer;text-align:center;padding:15px;border-radius:14px;border:2px solid var(--gray-border);transition:all 0.3s;flex:1;">
+            <div style="font-size:36px;">🐼</div>
+            <div style="font-weight:600;margin-top:5px;">Panda</div>
+          </div>
+          <div class="mascot-pick-card" onclick="changeMascot(2, 'Camaleon', '🦎')" style="cursor:pointer;text-align:center;padding:15px;border-radius:14px;border:2px solid var(--gray-border);transition:all 0.3s;flex:1;">
+            <div style="font-size:36px;">🦎</div>
+            <div style="font-weight:600;margin-top:5px;">Camaleón</div>
+          </div>
+          <div class="mascot-pick-card" onclick="changeMascot(3, 'Loro', '🦜')" style="cursor:pointer;text-align:center;padding:15px;border-radius:14px;border:2px solid var(--gray-border);transition:all 0.3s;flex:1;">
+            <div style="font-size:36px;">🦜</div>
+            <div style="font-weight:600;margin-top:5px;">Loro</div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeMascotChangeModal()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

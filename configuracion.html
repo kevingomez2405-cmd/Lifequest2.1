@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LifeQuest - Configuración</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <style>
+      .config-container {
+        width: 100%;
+        max-width: 450px;
+        min-height: 100vh;
+        background: var(--white);
+        border-radius: 0;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        overflow-y: auto;
+        position: relative;
+        z-index: 1;
+        animation: slideUp 0.6s ease;
+      }
+
+      @media (min-width: 500px) {
+        .config-container {
+          min-height: 90vh;
+          max-height: 90vh;
+          border-radius: 25px;
+          margin: 10px;
+        }
+      }
+
+      .config-header {
+        background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue), var(--neon-blue));
+        padding: 20px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border-radius: 0 0 25px 25px;
+        box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4);
+      }
+
+      @media (min-width: 500px) {
+        .config-header {
+          border-radius: 0 0 25px 25px;
+        }
+      }
+
+      .config-header .btn-back {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        font-size: 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      .config-header .btn-back:hover {
+        background: rgba(255, 255, 255, 0.35);
+        transform: scale(1.05);
+      }
+
+      .config-header h2 {
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      .config-body {
+        padding: 20px;
+        padding-bottom: 30px;
+      }
+
+      .config-section {
+        margin-bottom: 25px;
+      }
+
+      .config-section-title {
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--gray-text);
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+        padding-left: 5px;
+      }
+
+      .config-card {
+        background: var(--gray-light);
+        border-radius: 16px;
+        padding: 4px;
+        overflow: hidden;
+      }
+
+      .config-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 18px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        transition: background 0.2s ease;
+      }
+
+      .config-item:last-child {
+        border-bottom: none;
+      }
+
+      .config-item:hover {
+        background: rgba(59, 130, 246, 0.05);
+      }
+
+      .config-item-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex: 1;
+      }
+
+      .config-item-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: white;
+        flex-shrink: 0;
+      }
+
+      .config-item-icon.blue { background: linear-gradient(135deg, var(--secondary-blue), var(--neon-blue)); }
+      .config-item-icon.green { background: linear-gradient(135deg, #22c55e, #4ade80); }
+      .config-item-icon.purple { background: linear-gradient(135deg, var(--purple), #c084fc); }
+      .config-item-icon.orange { background: linear-gradient(135deg, #f97316, #fb923c); }
+      .config-item-icon.red { background: linear-gradient(135deg, #ef4444, #f87171); }
+      .config-item-icon.gold { background: linear-gradient(135deg, #b8860b, var(--gold)); }
+      .config-item-icon.teal { background: linear-gradient(135deg, #0d9488, #2dd4bf); }
+
+      .config-item-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .config-item-label {
+        font-size: 15px;
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      .config-item-desc {
+        font-size: 12px;
+        color: var(--gray-text);
+        margin-top: 2px;
+      }
+
+      .config-item-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+
+      .config-value {
+        font-size: 13px;
+        color: var(--gray-text);
+        font-weight: 500;
+      }
+
+      .config-chevron {
+        color: var(--gray-text);
+        font-size: 12px;
+        opacity: 0.5;
+      }
+
+      /* Toggle Switch */
+      .toggle-switch {
+        position: relative;
+        width: 52px;
+        height: 28px;
+      }
+
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #d1d5db;
+        transition: 0.3s;
+        border-radius: 28px;
+      }
+
+      .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.3s;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .toggle-switch input:checked + .toggle-slider {
+        background: linear-gradient(135deg, var(--secondary-blue), var(--green-btn));
+      }
+
+      .toggle-switch input:checked + .toggle-slider:before {
+        transform: translateX(24px);
+      }
+
+      /* Select Dropdown */
+      .config-select {
+        background: white;
+        border: 1px solid var(--gray-border);
+        border-radius: 8px;
+        padding: 6px 10px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #1f2937;
+        cursor: pointer;
+        outline: none;
+        min-width: 100px;
+      }
+
+      .config-select:focus {
+        border-color: var(--secondary-blue);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      }
+
+      /* Status Badge */
+      .status-badge {
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .status-badge.connected {
+        background: #dcfce7;
+        color: #16a34a;
+      }
+
+      .status-badge.disconnected {
+        background: #fee2e2;
+        color: #dc2626;
+      }
+
+      /* Save Button */
+      .config-save-area {
+        padding: 0 20px 20px;
+      }
+
+      .btn-save-config {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 14px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        color: white;
+        background: linear-gradient(135deg, var(--secondary-blue), var(--neon-blue));
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .btn-save-config:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+      }
+
+      .btn-save-config:active {
+        transform: translateY(0);
+      }
+
+      /* Danger Zone */
+      .danger-zone {
+        margin-top: 10px;
+      }
+
+      .danger-zone .config-card {
+        border: 1px solid #fecaca;
+        background: #fef2f2;
+      }
+
+      .danger-zone .config-item:hover {
+        background: #fee2e2;
+      }
+
+      /* Modal */
+      .config-modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+      }
+
+      .config-modal-overlay.active {
+        display: flex;
+      }
+
+      .config-modal {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        width: 90%;
+        max-width: 380px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: modalPop 0.3s ease;
+      }
+
+      @keyframes modalPop {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+
+      .config-modal h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .config-modal .input-group {
+        margin-bottom: 15px;
+      }
+
+      .config-modal .input-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--gray-text);
+        margin-bottom: 6px;
+      }
+
+      .config-modal .input-group input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 2px solid var(--gray-border);
+        border-radius: 12px;
+        font-size: 14px;
+        outline: none;
+        transition: all 0.3s ease;
+      }
+
+      .config-modal .input-group input:focus {
+        border-color: var(--secondary-blue);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      }
+
+      .config-modal-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .config-modal-actions button {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .config-modal-actions .btn-cancel {
+        background: var(--gray-light);
+        color: var(--gray-text);
+      }
+
+      .config-modal-actions .btn-confirm {
+        background: linear-gradient(135deg, var(--secondary-blue), var(--neon-blue));
+        color: white;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+      }
+
+      .config-modal-actions .btn-confirm:hover {
+        transform: translateY(-1px);
+      }
+
+      .config-modal-actions .btn-danger {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+        box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+      }
+
+      /* Upload area */
+      .upload-profile-area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 15px;
+        border: 2px dashed var(--gray-border);
+        border-radius: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 15px;
+      }
+
+      .upload-profile-area:hover {
+        border-color: var(--secondary-blue);
+        background: rgba(59, 130, 246, 0.03);
+      }
+
+      .upload-profile-area i {
+        font-size: 30px;
+        color: var(--secondary-blue);
+      }
+
+      .upload-profile-area span {
+        font-size: 13px;
+        color: var(--gray-text);
+      }
+
+      /* User info summary */
+      .user-info-summary {
+        background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+        border-radius: 16px;
+        padding: 20px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 25px;
+        box-shadow: 0 6px 20px rgba(30, 58, 138, 0.3);
+      }
+
+      .user-info-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        flex-shrink: 0;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .user-info-details {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .user-info-name {
+        font-size: 17px;
+        font-weight: 700;
+      }
+
+      .user-info-email {
+        font-size: 12px;
+        opacity: 0.8;
+        margin-top: 3px;
+      }
+
+      .user-info-level {
+        font-size: 12px;
+        margin-top: 5px;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 3px 10px;
+        border-radius: 20px;
+        display: inline-block;
+        width: fit-content;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dynamic-bg">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+    </div>
+
+    <div class="config-container">
+      <!-- HEADER -->
+      <header class="config-header">
+        <button class="btn-back" onclick="goBack()">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h2><i class="fas fa-cog"></i> Configuración</h2>
+      </header>
+
+      <div class="config-body">
+        <!-- User Info Summary -->
+        <div class="user-info-summary">
+          <div class="user-info-avatar" id="cfg-avatar">
+            <i class="fas fa-user-astronaut"></i>
+          </div>
+          <div class="user-info-details">
+            <div class="user-info-name" id="cfg-user-name">Cargando...</div>
+            <div class="user-info-email" id="cfg-user-email">...</div>
+            <div class="user-info-level" id="cfg-user-level">Nivel 1</div>
+          </div>
+        </div>
+
+        <!-- PERFIL -->
+        <div class="config-section">
+          <div class="config-section-title">Perfil</div>
+          <div class="config-card">
+            <div class="config-item" onclick="openModal('name')">
+              <div class="config-item-left">
+                <div class="config-item-icon blue"><i class="fas fa-user"></i></div>
+                <div class="config-item-text">
+                  <span class="config-item-label">Nombre</span>
+                  <span class="config-item-desc" id="cfg-name-value">-</span>
+                </div>
+              </div>
+              <div class="config-item-right">
+                <i class="fas fa-chevron-right config-chevron"></i>
+              </div>
+            </div>
+            <div class="config-item" onclick="openModal('password')">
+              <div class="config-item-left">
+                <div class="config-item-icon purple"><i class="fas fa-lock"></i></div>
+                <div class="config-item-text">
+                  <span class="config-item-label">Cambiar Contraseña</span>
+                  <span class="config-item-desc">Actualiza tu contraseña</span>
+                </div>
+              </div>
+              <div class="config-item-right">
+                <i class="fas fa-chevron-right config-chevron"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- APARIENCIA -->
+        <div class="config-section">
+          <div class="config-section-title">Apariencia</div>
+          <div class="config-card">
+            <div class="config-item">
+              <div class="config-item-left">
+                <div class="config-item-icon blue"><i class="fas fa-palette"></i></div>
+                <div class="config-item-text">
+                  <span class="config-item-label">Tema</span>
+                  <span class="config-item-desc">Apariencia de la aplicación</span>
+                </div>
+              </div>
+              <div class="config-item-right">
+                <select class="config-select" id="cfg-tema" onchange="markDirty()">
+                  <option value="CLARO">Claro</option>
+                  <option value="OSCURO">Oscuro</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PREFERENCIAS -->
+        <div class="config-section">
+          <div class="config-section-title">Preferencias</div>
+          <div class="config-card">
+            <div class="config-item">
+              <div class="config-item-left">
+                <div class="config-item-icon green"><i class="fas fa-globe"></i></div>
+                <div class="config-item-text">
+                  <span class="config-item-label">Idioma</span>
+                  <span class="config-item-desc">Idioma de la aplicación</span>
+                </div>
+              </div>
+              <div class="config-item-right">
+                <select class="config-select" id="cfg-idioma" onchange="markDirty()">
+                  <option value="ESPAÑOL">Español</option>
+                  <option value="INGLES">Inglés</option>
+                </select>
+              </div>
+            </div>
+            <div class="config-item">
+              <div class="config-item-left">
+                <div class="config-item-icon orange"><i class="fas fa-bell"></i></div>
+                <div class="config-item-text">
+                  <span class="config-item-label">Notificaciones</span>
+                  <span class="config-item-desc">Recibe alertas de misiones y rachas</span>
+                </div>
+              </div>
+              <div class="config-item-right">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="cfg-notificaciones" onchange="markDirty()" />
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CUENTAS VINCULADAS -->
+        <div class="config-section">
+          <div class="config-section-title">Cuentas Vinculadas</div>
+          <div class="config-card">
+            <div class="config-item">
+              <div class="config-item-left">
+                <div class="config-item-icon" style="background: linear-gradient(135deg, #4285f4, #34a853);">
+                  <i class="fab fa-google"></i>
+                </div>
+                <div class="config-item-text">
+                  <span class="config-item-label">Google</span>
+                  <span class="config-item-desc">Sincroniza tu cuenta</span>
+                </div>
+              </div>
+              <div class="config-item-right">
+                <span class="status-badge disconnected" id="cfg-google-status">No vinculada</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- JUEGOS VINCULADOS -->
+        <div class="config-section">
+          <div class="config-section-title">Juegos Vinculados</div>
+          <div class="config-card" id="cfg-games-list">
+            <div class="config-item">
+              <div class="config-item-left">
+                <div class="config-item-icon teal"><i class="fas fa-gamepad"></i></div>
+                <div class="config-item-text">
+                  <span class="config-item-label">Cargando juegos...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DATOS Y PRIVACIDAD -->
+        <div class="config-section">
+          <div class="config-section-title">Datos y Privacidad</div>
+          <div class="config-card">
+            <div class="config-item" onclick="openModal('export')">
+              <div class="config-item-left">
+                <div class="config-item-icon gold"><i class="fas fa-download"></i></div>
+                <div class="config-item-text">
+                  <span class="config-item-label">Exportar Mis Datos</span>
+                  <span class="config-item-desc">Descarga una copia de tu información</span>
+                </div>
+              </div>
+              <div class="config-item-right">
+                <i class="fas fa-chevron-right config-chevron"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ZONA DE PELIGRO -->
+        <div class="config-section danger-zone">
+          <div class="config-section-title">Zona de Peligro</div>
+          <div class="config-card">
+            <div class="config-item" onclick="openModal('delete')">
+              <div class="config-item-left">
+                <div class="config-item-icon red"><i class="fas fa-trash-alt"></i></div>
+                <div class="config-item-text">
+                  <span class="config-item-label">Eliminar Cuenta</span>
+                  <span class="config-item-desc">Esta acción no se puede deshacer</span>
+                </div>
+              </div>
+              <div class="config-item-right">
+                <i class="fas fa-chevron-right config-chevron"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <div class="config-save-area">
+        <button class="btn-save-config" id="btn-save-config" onclick="saveConfig()" style="display:none;">
+          <i class="fas fa-save"></i> Guardar Cambios
+        </button>
+      </div>
+    </div>
+
+    <!-- MODAL: Edit Name -->
+    <div class="config-modal-overlay" id="modal-name">
+      <div class="config-modal">
+        <h3><i class="fas fa-user"></i> Cambiar Nombre</h3>
+        <div class="input-group">
+          <label for="input-nombre">Nombre</label>
+          <input type="text" id="input-nombre" placeholder="Tu nombre" />
+        </div>
+        <div class="input-group">
+          <label for="input-apellido">Apellido</label>
+          <input type="text" id="input-apellido" placeholder="Tu apellido" />
+        </div>
+        <div class="config-modal-actions">
+          <button class="btn-cancel" onclick="closeModal('name')">Cancelar</button>
+          <button class="btn-confirm" onclick="saveName()">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Change Password -->
+    <div class="config-modal-overlay" id="modal-password">
+      <div class="config-modal">
+        <h3><i class="fas fa-lock"></i> Cambiar Contraseña</h3>
+        <div class="input-group">
+          <label for="input-current-pass">Contraseña Actual</label>
+          <input type="password" id="input-current-pass" placeholder="Ingresa tu contraseña actual" />
+        </div>
+        <div class="input-group">
+          <label for="input-new-pass">Nueva Contraseña</label>
+          <input type="password" id="input-new-pass" placeholder="Mínimo 8 caracteres" />
+        </div>
+        <div class="input-group">
+          <label for="input-confirm-pass">Confirmar Nueva Contraseña</label>
+          <input type="password" id="input-confirm-pass" placeholder="Repite la nueva contraseña" />
+        </div>
+        <div class="config-modal-actions">
+          <button class="btn-cancel" onclick="closeModal('password')">Cancelar</button>
+          <button class="btn-confirm" onclick="savePassword()">Cambiar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Export Data -->
+    <div class="config-modal-overlay" id="modal-export">
+      <div class="config-modal">
+        <h3><i class="fas fa-download"></i> Exportar Datos</h3>
+        <p style="text-align:center;color:var(--gray-text);font-size:14px;margin-bottom:15px;">
+          Se descargará un archivo JSON con toda tu información de LifeQuest.
+        </p>
+        <div class="config-modal-actions">
+          <button class="btn-cancel" onclick="closeModal('export')">Cancelar</button>
+          <button class="btn-confirm" onclick="exportData()">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Delete Account -->
+    <div class="config-modal-overlay" id="modal-delete">
+      <div class="config-modal">
+        <h3><i class="fas fa-exclamation-triangle" style="color:#ef4444;"></i> Eliminar Cuenta</h3>
+        <p style="text-align:center;color:var(--gray-text);font-size:14px;margin-bottom:5px;">
+          Esta acción es <strong>permanente</strong> y eliminará todos tus datos:
+        </p>
+        <ul style="color:var(--gray-text);font-size:13px;padding-left:20px;margin-bottom:15px;">
+          <li>Perfil y progreso</li>
+          <li>Misiones y evidencias</li>
+          <li>Mascotas y accesorios</li>
+          <li>Logros y rachas</li>
+          <li>Compras y monedas</li>
+        </ul>
+        <div class="config-modal-actions">
+          <button class="btn-cancel" onclick="closeModal('delete')">Cancelar</button>
+          <button class="btn-danger" onclick="confirmDelete()">Eliminar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden file input for profile photo -->
+    <input type="file" id="profile-photo-input" accept="image/*" style="display:none" />
+
+    <script src="js/api.js"></script>
+    <script src="js/configuracion.js"></script>
+  </body>
+</html>

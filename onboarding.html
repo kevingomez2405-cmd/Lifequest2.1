@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LifeQuest - Onboarding</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/onboarding.css" />
+  </head>
+  <body>
+    <div class="dynamic-bg">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+
+    <div class="onboarding-container">
+      <div class="progress-header">
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="step-text"
+          >Paso <span id="current-step-num">1</span> de 9</span
+        >
+      </div>
+
+      <!-- PASO 1: Bienvenida -->
+      <div class="step active" id="step-1">
+        <div class="welcome-screen">
+          <div class="logo-circle"><i class="fas fa-gamepad"></i></div>
+          <h1>¡Bienvenido a LifeQuest!</h1>
+          <p class="welcome-text">
+            Antes de empezar, permítenos conocerte para crear una experiencia
+            personalizada.
+          </p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> Misiones personalizadas
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> Mascota virtual que te motiva
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> Sistema de recompensas
+            </div>
+          </div>
+          <button class="btn-next big-btn" onclick="nextStep(2)">
+            Comenzar <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 2: Nombre e Identidad -->
+      <div class="step" id="step-2">
+        <div class="step-header">
+          <div class="icon-circle"><i class="fas fa-user"></i></div>
+          <h2>¿Cómo te llamas?</h2>
+          <p>Cuéntanos un poco sobre ti</p>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-user-edit"></i>
+          <input type="text" id="nombre" placeholder="Tu nombre" required />
+        </div>
+        <div class="gender-section">
+          <label class="section-label">¿Cómo te identificas?</label>
+          <div class="gender-options">
+            <label class="gender-option">
+              <input type="radio" name="genero" value="Masculino" required />
+              <span class="gender-card"
+                ><i class="fas fa-mars"></i><span>Masculino</span></span
+              >
+            </label>
+            <label class="gender-option">
+              <input type="radio" name="genero" value="Femenino" />
+              <span class="gender-card"
+                ><i class="fas fa-venus"></i><span>Femenino</span></span
+              >
+            </label>
+            <label class="gender-option">
+              <input type="radio" name="genero" value="No binario" />
+              <span class="gender-card"
+                ><i class="fas fa-genderless"></i><span>No binario</span></span
+              >
+            </label>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-back" onclick="prevStep(1)">
+            <i class="fas fa-arrow-left"></i> Atrás
+          </button>
+          <button class="btn-next" onclick="nextStep(3)">
+            Siguiente <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 3: Datos Físicos -->
+      <div class="step" id="step-3">
+        <div class="step-header">
+          <div class="icon-circle"><i class="fas fa-ruler-combined"></i></div>
+          <h2>Datos físicos</h2>
+          <p>Nos ayudan a calcular tu nivel de dificultad</p>
+        </div>
+        <label class="section-label">¿Cuál es tu edad?</label>
+        <div class="date-selector">
+          <div class="date-box">
+            <select id="dia">
+              <option value="" disabled selected>Día</option>
+            </select>
+          </div>
+          <div class="date-box">
+            <select id="mes">
+              <option value="" disabled selected>Mes</option>
+              <option value="01">Enero</option>
+              <option value="02">Febrero</option>
+              <option value="03">Marzo</option>
+              <option value="04">Abril</option>
+              <option value="05">Mayo</option>
+              <option value="06">Junio</option>
+              <option value="07">Julio</option>
+              <option value="08">Agosto</option>
+              <option value="09">Septiembre</option>
+              <option value="10">Octubre</option>
+              <option value="11">Noviembre</option>
+              <option value="12">Diciembre</option>
+            </select>
+          </div>
+          <div class="date-box">
+            <select id="anio">
+              <option value="" disabled selected>Año</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-weight"></i>
+          <input
+            type="number"
+            id="peso"
+            placeholder="¿Cuál es tu peso? (opcional) kg"
+          />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-ruler-vertical"></i>
+          <input
+            type="number"
+            id="altura"
+            placeholder="¿Cuál es tu altura? (opcional) cm"
+          />
+        </div>
+        <div class="btn-row">
+          <button class="btn-back" onclick="prevStep(2)">
+            <i class="fas fa-arrow-left"></i> Atrás
+          </button>
+          <button class="btn-next" onclick="nextStep(4)">
+            Siguiente <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 4: Tipo de Misión Principal -->
+      <div class="step" id="step-4">
+        <div class="step-header">
+          <div class="icon-circle"><i class="fas fa-bullseye"></i></div>
+          <h2>¡Hagamos una nueva misión!</h2>
+          <p>¿Qué tipo de objetivo quieres lograr?</p>
+        </div>
+        <div class="mission-selector">
+          <div class="mission-card" onclick="selectMission(this, 'Estudiar')">
+            <div class="mission-icon green"><i class="fas fa-book"></i></div>
+            <h3>Estudiar</h3>
+          </div>
+          <div class="mission-card" onclick="selectMission(this, 'Ejercicio')">
+            <div class="mission-icon red"><i class="fas fa-dumbbell"></i></div>
+            <h3>Hacer ejercicio</h3>
+          </div>
+          <div class="mission-card" onclick="selectMission(this, 'Dormir')">
+            <div class="mission-icon blue"><i class="fas fa-moon"></i></div>
+            <h3>Dormir mejor</h3>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-back" onclick="prevStep(3)">
+            <i class="fas fa-arrow-left"></i> Atrás
+          </button>
+          <button class="btn-next" onclick="nextStep(5)">
+            Siguiente <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 5: Detalles Específicos según Misión -->
+      <div class="step" id="step-5">
+        <div class="step-header">
+          <div class="icon-circle"><i class="fas fa-cog"></i></div>
+          <h2 id="step5-title">Personaliza tu misión</h2>
+          <p id="step5-subtitle">
+            Nos ayudará a escoger los mejores hábitos para ti :3
+          </p>
+        </div>
+
+        <!-- Opciones para ESTUDIAR -->
+        <div
+          id="options-estudiar"
+          class="mission-specific-options"
+          style="display: none"
+        >
+          <label class="section-label">¿Qué materia vas a estudiar?</label>
+          <div class="subject-selector">
+            <div class="subject-card" onclick="selectSubject(this, 'Inglés')">
+              <div class="subject-icon green">
+                <i class="fas fa-language"></i>
+              </div>
+              <span>Inglés</span>
+            </div>
+            <div
+              class="subject-card"
+              onclick="selectSubject(this, 'Matemáticas')"
+            >
+              <div class="subject-icon red">
+                <i class="fas fa-calculator"></i>
+              </div>
+              <span>Matemáticas</span>
+            </div>
+            <div class="subject-card" onclick="selectSubject(this, 'Historia')">
+              <div class="subject-icon blue">
+                <i class="fas fa-landmark"></i>
+              </div>
+              <span>Historia</span>
+            </div>
+            <div
+              class="subject-card"
+              onclick="selectSubject(this, 'Programación')"
+            >
+              <div class="subject-icon purple"><i class="fas fa-code"></i></div>
+              <span>Programación</span>
+            </div>
+          </div>
+          <label class="section-label">Escoge la dificultad</label>
+          <div class="difficulty-selector">
+            <div
+              class="difficulty-card"
+              onclick="selectDifficulty(this, 'Bajo')"
+            >
+              <div class="difficulty-indicator green"></div>
+              <span>Bajo</span>
+            </div>
+            <div
+              class="difficulty-card"
+              onclick="selectDifficulty(this, 'Leve')"
+            >
+              <div class="difficulty-indicator yellow"></div>
+              <span>Leve</span>
+            </div>
+            <div
+              class="difficulty-card"
+              onclick="selectDifficulty(this, 'Fuerte')"
+            >
+              <div class="difficulty-indicator red"></div>
+              <span>Fuerte</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Opciones para EJERCICIO -->
+        <div
+          id="options-ejercicio"
+          class="mission-specific-options"
+          style="display: none"
+        >
+          <label class="section-label"
+            >¿Qué tipo de ejercicio te gustaría hacer?</label
+          >
+          <div class="exercise-selector">
+            <div class="exercise-card" onclick="selectExercise(this, 'Correr')">
+              <div class="exercise-icon red">
+                <i class="fas fa-running"></i>
+              </div>
+              <span>Correr</span>
+            </div>
+            <div class="exercise-card" onclick="selectExercise(this, 'Pesas')">
+              <div class="exercise-icon blue">
+                <i class="fas fa-dumbbell"></i>
+              </div>
+              <span>Pesas</span>
+            </div>
+            <div class="exercise-card" onclick="selectExercise(this, 'Cardio')">
+              <div class="exercise-icon green">
+                <i class="fas fa-heartbeat"></i>
+              </div>
+              <span>Cardio</span>
+            </div>
+            <div class="exercise-card" onclick="selectExercise(this, 'Yoga')">
+              <div class="exercise-icon purple"><i class="fas fa-spa"></i></div>
+              <span>Yoga</span>
+            </div>
+          </div>
+          <label class="section-label">Nivel de intensidad</label>
+          <div class="difficulty-selector">
+            <div
+              class="difficulty-card"
+              onclick="selectDifficulty(this, 'Bajo')"
+            >
+              <div class="difficulty-indicator green"></div>
+              <span>Bajo</span>
+            </div>
+            <div
+              class="difficulty-card"
+              onclick="selectDifficulty(this, 'Leve')"
+            >
+              <div class="difficulty-indicator yellow"></div>
+              <span>Leve</span>
+            </div>
+            <div
+              class="difficulty-card"
+              onclick="selectDifficulty(this, 'Fuerte')"
+            >
+              <div class="difficulty-indicator red"></div>
+              <span>Fuerte</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Opciones para DORMIR -->
+        <div
+          id="options-dormir"
+          class="mission-specific-options"
+          style="display: none"
+        >
+          <label class="section-label"
+            >¿Qué te gustaría mejorar para dormir mejor?</label
+          >
+          <div class="sleep-selector">
+            <div class="sleep-card" onclick="selectSleep(this, 'Horario')">
+              <div class="sleep-icon blue"><i class="fas fa-clock"></i></div>
+              <span>Establecer horario</span>
+            </div>
+            <div class="sleep-card" onclick="selectSleep(this, 'Pantallas')">
+              <div class="sleep-icon red">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <span>Reducir pantallas</span>
+            </div>
+            <div class="sleep-card" onclick="selectSleep(this, 'Relajacion')">
+              <div class="sleep-icon green"><i class="fas fa-music"></i></div>
+              <span>Técnicas de relajación</span>
+            </div>
+            <div class="sleep-card" onclick="selectSleep(this, 'Ambiente')">
+              <div class="sleep-icon purple"><i class="fas fa-bed"></i></div>
+              <span>Mejorar ambiente</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="prevStep(4)">
+            <i class="fas fa-arrow-left"></i> Atrás
+          </button>
+          <button class="btn-next" onclick="nextStep(6)">
+            Siguiente <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 6: Hábitos y Tiempo -->
+      <div class="step" id="step-6">
+        <div class="step-header">
+          <div class="icon-circle"><i class="fas fa-clock"></i></div>
+          <h2>Tu compromiso</h2>
+          <p>Dinos cuánto tiempo quieres dedicar</p>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-list-check"></i>
+          <input
+            type="number"
+            id="num-habitos"
+            placeholder="¿Cuántos hábitos quieres gestionar?"
+            required
+          />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-hourglass-half"></i>
+          <input
+            type="number"
+            id="tiempo-libre"
+            placeholder="¿Cuántos minutos libres tienes al día?"
+            required
+          />
+        </div>
+        <div class="input-group select-group">
+          <i class="fas fa-star"></i>
+          <select id="experiencia" required>
+            <option value="" disabled selected>
+              ¿Has creado hábitos antes?
+            </option>
+            <option value="principiante">Nunca, soy principiante</option>
+            <option value="intermedio">A veces, nivel intermedio</option>
+            <option value="avanzado">Siempre, soy avanzado</option>
+          </select>
+        </div>
+        <div class="btn-row">
+          <button class="btn-back" onclick="prevStep(5)">
+            <i class="fas fa-arrow-left"></i> Atrás
+          </button>
+          <button class="btn-next" onclick="nextStep(7)">
+            Siguiente <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 7: Mascota -->
+      <div class="step" id="step-7">
+        <div class="step-header">
+          <div class="icon-circle"><i class="fas fa-paw"></i></div>
+          <h2>Elige tu Compañero</h2>
+          <p>Esta mascota te acompañará en tu aventura</p>
+        </div>
+
+        <!-- ÁREA DE MASCOTA CON ANIMACIÓN CORREGIDA -->
+        <div class="mascot-preview-area">
+          <div class="mascot-3d-wrapper" id="mascot-3d-space">
+            <div class="mascot-bounce-container">
+              <span class="temp-emoji" id="temp-mascot-emoji"></span>
+            </div>
+            <p class="placeholder-text">Espacio para modelo 3D</p>
+          </div>
+        </div>
+
+        <div class="mascot-selector">
+          <div class="mascot-card" onclick="selectMascot(this, 'Panda', '🐼', 1)">
+            <div class="mascot-icon">🐼</div>
+            <h3>Panda</h3>
+          </div>
+          <div
+            class="mascot-card"
+            onclick="selectMascot(this, 'Camaleon', '🦎', 2)"
+          >
+            <div class="mascot-icon">🦎</div>
+            <h3>Camaleón</h3>
+          </div>
+          <div class="mascot-card" onclick="selectMascot(this, 'Loro', '🦜', 3)">
+            <div class="mascot-icon">🦜</div>
+            <h3>Loro</h3>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-back" onclick="prevStep(6)">
+            <i class="fas fa-arrow-left"></i> Atrás
+          </button>
+          <button class="btn-next" onclick="nextStep(8)">
+            Siguiente <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 8: Gaming Balance -->
+      <div class="step" id="step-8">
+        <div class="step-header">
+          <div class="icon-circle"><i class="fas fa-gamepad"></i></div>
+          <h2>¿Eres gamer? 🎮</h2>
+          <p>LifeQuest también cuida tus sesiones de juego</p>
+        </div>
+
+        <div class="gaming-toggle">
+          <label class="toggle-switch">
+            <input
+              type="checkbox"
+              id="gaming-enabled"
+              onchange="toggleGamingOptions()"
+            />
+            <span class="slider"></span>
+          </label>
+          <span class="toggle-label">Sí, juego videojuegos regularmente</span>
+        </div>
+
+        <div id="gaming-options" style="display: none">
+          <label class="section-label"
+            >Selecciona tus juegos principales:</label
+          >
+          <div class="games-selector">
+            <label class="game-option">
+              <input type="checkbox" name="games" value="Fortnite" />
+              <span class="game-card"
+                ><i class="fas fa-shield-alt"></i><span>Fortnite</span></span
+              >
+            </label>
+            <label class="game-option">
+              <input type="checkbox" name="games" value="Free Fire" />
+              <span class="game-card"
+                ><i class="fas fa-fire"></i><span>Free Fire</span></span
+              >
+            </label>
+            <label class="game-option">
+              <input type="checkbox" name="games" value="League of Legends" />
+              <span class="game-card"
+                ><i class="fas fa-chess"></i><span>LoL</span></span
+              >
+            </label>
+            <label class="game-option">
+              <input type="checkbox" name="games" value="Minecraft" />
+              <span class="game-card"
+                ><i class="fas fa-cube"></i><span>Minecraft</span></span
+              >
+            </label>
+          </div>
+
+          <label class="section-label">Configura tu límite diario:</label>
+          <div class="time-selector">
+            <select id="gaming-limit">
+              <option value="60">1 hora</option>
+              <option value="120" selected>2 horas</option>
+              <option value="180">3 horas</option>
+              <option value="240">4 horas</option>
+            </select>
+          </div>
+
+          <div class="gaming-features">
+            <label class="feature-checkbox">
+              <input type="checkbox" checked />
+              <span>⏰ Activar recordatorios de descanso</span>
+            </label>
+            <label class="feature-checkbox">
+              <input type="checkbox" checked />
+              <span>💰 Ganar XP por pausas activas</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="prevStep(7)">
+            <i class="fas fa-arrow-left"></i> Atrás
+          </button>
+          <button class="btn-next" onclick="nextStep(9)">
+            Siguiente <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 9: Resumen -->
+      <div class="step" id="step-9">
+        <div class="step-header">
+          <div class="icon-circle"><i class="fas fa-rocket"></i></div>
+          <h2>¡Todo Listo!</h2>
+          <p>Hemos configurado tu perfil de jugador</p>
+        </div>
+        <div class="summary-box">
+          <div class="summary-item">
+            <i class="fas fa-user"></i>
+            <div>
+              <span class="label">Nombre:</span
+              ><span class="value" id="resumen-nombre">-</span>
+            </div>
+          </div>
+          <div class="summary-item">
+            <i class="fas fa-bullseye"></i>
+            <div>
+              <span class="label">Misión:</span
+              ><span class="value" id="resumen-mision">-</span>
+            </div>
+          </div>
+          <div class="summary-item">
+            <i class="fas fa-layer-group"></i>
+            <div>
+              <span class="label">Dificultad:</span
+              ><span class="value" id="resumen-dificultad">-</span>
+            </div>
+          </div>
+          <div class="summary-item">
+            <i class="fas fa-paw"></i>
+            <div>
+              <span class="label">Mascota:</span
+              ><span class="value" id="resumen-mascota">-</span>
+            </div>
+          </div>
+          <div class="summary-item">
+            <i class="fas fa-gamepad"></i>
+            <div>
+              <span class="label">Gaming:</span
+              ><span class="value" id="resumen-gaming">No configurado</span>
+            </div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-back" onclick="prevStep(8)">
+            <i class="fas fa-arrow-left"></i> Atrás
+          </button>
+          <button class="btn-primary" onclick="finishOnboarding()">
+            ¡Comenzar Aventura! <i class="fas fa-gamepad"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="js/api.js"></script>
+    <script src="js/onboarding.js"></script>
+  </body>
+</html>
